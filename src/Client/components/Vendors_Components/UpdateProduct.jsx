@@ -1,22 +1,24 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-const Vendor_Home = (props) => {
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { NavLink } from "react-router-dom";
+
+const UpdateProduct = (props) => {
   const navigate = useNavigate();
   //States:-
-  const [cat, setCat] = useState("");
-  const [p_name, setPname] = useState("");
-  const [p_image, setPimage] = useState("");
-  const [qty, setQty] = useState("");
-  const [price, setPrice] = useState(0.0);
-  const [stock, setStock] = useState(0);
-  const [about, setAbout] = useState("");
-  const [discount, setDiscount] = useState(0);
+  const [cat, setCat] = useState(props.item.categories);
+  const [p_name, setPname] = useState(props.item.product_name);
+  const [p_image, setPimage] = useState(props.item.image);
+  const [qty, setQty] = useState(props.item.quantity);
+  const [price, setPrice] = useState(props.item.price);
+  const [stock, setStock] = useState(props.item.stock);
+  const [about, setAbout] = useState(props.item.about);
+  const [discount, setDiscount] = useState(props.item.discount);
   // const [V_name, setV_name] = useState("Invalid User");
   // console.log(props.vendor_data);
   //checking login is succesfull or not :-
   useEffect(() => {
-    if (!props.vendor_data.name) {
+    if (!props.item._id) {
       navigate("/Login");
       alert("your session has been terminated !!!");
     }
@@ -59,9 +61,9 @@ const Vendor_Home = (props) => {
     }
 
     const cap_p_name = words.join(" ");
-    const sid = props.vendor_data.email;
+    const pid = props.item._id;
     const list = {
-      sid,
+      pid,
       cat,
       cap_p_name,
       p_image,
@@ -71,16 +73,10 @@ const Vendor_Home = (props) => {
       about,
       discount,
     };
-    setCat("");
-    setAbout("");
-    setDiscount(0);
-    setPimage("");
-    setPname("");
-    setQty("");
-    setStock(0);
-    setPrice(0);
     console.log(list);
-    axios.post("http://localhost:3001/api/product", list);
+    axios.post("http://localhost:3001/update/product", list).then((res) => {
+      alert("Your Product Details Has Been SuccessFully updated");
+    });
   };
   return (
     <div>
@@ -88,14 +84,6 @@ const Vendor_Home = (props) => {
         <NavLink to="/Vendor_Home" className="Nav_Logo m-3">
           Door Step
         </NavLink>
-        <div className="flex md:ml-auto ml-0 md:mr-auto mr-0 w-5/6 align-middle">
-          <div className="flex flex-col md:flex-row flex-wrap md:ml-auto ml-0 align-middle">
-            <div className="info m-3">{props.vendor_data.name}</div>
-            <NavLink to="/" className="m-3">
-              LogOut
-            </NavLink>
-          </div>
-        </div>
       </nav>
       <br></br>
       <div className="pt-16">
@@ -138,11 +126,11 @@ const Vendor_Home = (props) => {
             value={discount}
             onChange={discount_handler}
           ></input>
-          <input type="button" value="Upload" onClick={submit_handeler}></input>
+          <input type="button" value="Update" onClick={submit_handeler}></input>
         </form>
       </div>
     </div>
   );
 };
 
-export default Vendor_Home;
+export default UpdateProduct;

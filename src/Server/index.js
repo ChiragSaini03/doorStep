@@ -357,6 +357,7 @@ app.post("/add/orders", (req, res) => {
 
   const update_seller_order = async (data) => {
     try {
+      const date = new Date();
       const sellers = Object.entries(data.order);
       console.log(sellers);
       sellers.map(async (i) => {
@@ -367,6 +368,7 @@ app.post("/add/orders", (req, res) => {
           customer_id: data.cust_id,
           order: i[1],
           status: 0,
+          date: date,
         });
         const result = await rec.save();
         console.log(result);
@@ -389,10 +391,13 @@ app.post("/add/orders", (req, res) => {
 
   const insert = async (data) => {
     try {
+      const date = new Date();
       const rec = new Orders_collec({
         cust_id: data.cid,
         order: data.order,
-        status: "not dilivered",
+        status: "Not Delivered",
+        date: date,
+        total: data.total,
       });
       const record = await rec.save();
       update_seller_order(record);
@@ -427,6 +432,150 @@ app.post("/add/orders", (req, res) => {
 
   update_stock(d);
   insert(d);
+});
+
+// TRACK ORDERS :-
+
+app.post("/track/order", (req, res) => {
+  const d = req.body;
+  const get_order = async (data) => {
+    try {
+      const result = await Orders_collec.find({
+        cust_id: data.id,
+      });
+      console.log(result);
+      res.send(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  console.log(d);
+  get_order(d);
+});
+
+// VENDORS INFO :-
+
+app.post("/get/vendors/product", (req, res) => {
+  const get_products = async (id) => {
+    try {
+      console.log(id);
+      const result = await Product_collec.find({
+        seller_id: id,
+      });
+      console.log(result);
+      if (result) {
+        res.send(result);
+      } else {
+        console.log("no data");
+        res.send([]);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  console.log(req.body);
+  get_products(req.body.vid);
+});
+
+app.post("/update/product", (req, res) => {
+  const update_product = async (id) => {
+    try {
+      const result = await Product_collec.findOneAndUpdate(
+        { _id: id },
+        {
+          $set: {
+            categories: req.body.cat,
+            product_name: req.body.cap_p_name,
+            stock: req.body.stock,
+            price: req.body.price,
+            quantity: req.body.qty,
+            image: req.body.p_image,
+            about: req.body.about,
+            discount: req.body.discount,
+          },
+        },
+        { new: true }
+      );
+      console.log(result);
+      res.send(result);
+    } catch (err) {}
+  };
+  update_product(req.body.pid);
+});
+
+app.post("/get/seller/orders", (req, res) => {
+  const get_orders = async (id) => {
+    try {
+      const result = await Seller_collec.find({ seller_id: id });
+      console.log(result);
+      res.send(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  get_orders(req.body.vid);
+});
+
+app.post("/get/customer/details", (req, res) => {
+  const get_customer = async (id) => {
+    try {
+      const result = await Login_collec.find({ email: id });
+      console.log(result);
+      res.send({
+        email: result[0].email,
+        name: result[0].name,
+        phone: result[0].phone,
+        address: result[0].address,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  get_customer(req.body.cid);
+});
+
+app.post("/dispatch/product", (req, res) => {
+  const update_order_status = async (data) => {
+    try {
+      let result = await Orders_collec.find({ _id: data.oid });
+      // let temp =
+      result[0].order[data.sid][0][0] = 1;
+      const arr = Object.entries(result[0].order);
+      console.log(arr);
+      const utcdate = new Date();
+      const istTime = new Date(utcdate.getTime()); // add offset to UTC time
+      const date = istTime.toLocaleDateString("en-IN");
+      const time = istTime.toLocaleTimeString("en-IN");
+      let all_dispached = "Delivered on " + date + " at " + time;
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i][1][0][0] == 0) {
+          all_dispached = "Not Delivered";
+          break;
+        }
+      }
+      const result2 = await Orders_collec.findOneAndUpdate(
+        { _id: data.oid },
+        { $set: { order: result[0].order, status: all_dispached } }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const update_seller_info = async (data) => {
+    try {
+      const result = await Seller_collec.findOneAndUpdate(
+        { order_id: data.oid, seller_id: data.sid },
+        { $set: { status: 1 } },
+        { new: true }
+      );
+      console.log(result);
+      update_order_status(data);
+      res.send(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  update_seller_info(req.body);
 });
 
 app.listen(port);

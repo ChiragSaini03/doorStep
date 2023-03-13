@@ -1,19 +1,11 @@
-import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Items = (props) => {
+const DisplayProducts = (props) => {
   const navigate = useNavigate();
-
-  const cart_handler = async () => {
-    // props.cart_item(props.item._id);
-    if (props.cid == "no_id") {
-      const confirmed = window.confirm("First LogIn / Sgnup for placing order");
-      if (confirmed) navigate("/Login");
-    } else {
-      const list = { cust_id: props.cid, pid: props.item._id };
-      axios.post("http://localhost:3001/api/insertcart", list);
-    }
+  const Update_handler = () => {
+    props.update(props.item);
+    navigate("/update_product");
   };
   return (
     <div className=" border-2 hover:border-cyan-500 rounded-lg flex flex-col flex-none w-[215px] m-2 p-2">
@@ -35,11 +27,15 @@ const Items = (props) => {
         </p>
         <p>{((100 - props.item.discount) * props.item.price) / 100}$</p>
       </div>
-      <button className="bg-gray-100 rounded-full w-1/2" onClick={cart_handler}>
-        add
+      <div>Stock : {props.item.stock}</div>
+      <button
+        className="bg-gray-100 rounded-full w-1/2"
+        onClick={Update_handler}
+      >
+        Update
       </button>
     </div>
   );
 };
 
-export default Items;
+export default DisplayProducts;

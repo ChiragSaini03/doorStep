@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Checkout = (props) => {
   const [items, setItems] = useState([]);
@@ -18,6 +18,19 @@ const Checkout = (props) => {
     });
     console.log(response.data);
     const items_list = Object.entries(response.data);
+    let count = 0;
+    if (items_list.length <= 0) {
+      alert("Your Cart is Empty");
+      navigate("/Customer_Home");
+    } else {
+      items_list.map((i) => {
+        count += i[1];
+      });
+      if (count == 0) {
+        alert("Your Cart is Empty");
+        navigate("/Customer_Home");
+      }
+    }
     setItems((prev) => (prev = [...items_list]));
     console.log(items_list);
   };
@@ -82,6 +95,11 @@ const Checkout = (props) => {
     const res = await axios.post("http://localhost:3001/add/orders", {
       cid: props.data.email,
       order: seller,
+      total: {
+        subtotal: Math.round(subtotal * 100) / 100,
+        total: Math.round(total * 100) / 100,
+        discount: Math.round(((subtotal - total) / total) * 100 * 100) / 100,
+      },
     });
     alert("Your Order has Been placed Success fully");
     navigate("/Customer_home");
@@ -89,8 +107,9 @@ const Checkout = (props) => {
 
   return (
     <div>
+      <NavLink to="/Cart">Cart</NavLink>
       Checkout
-      {console.log(seller)}
+      <br></br>
       <table>
         <tr>
           <th>Product name</th> <th>Quantity</th>
@@ -115,6 +134,7 @@ const Checkout = (props) => {
           {Math.round(((subtotal - total) / total) * 100 * 100) / 100}%
         </p>
       </div>
+      <br></br>
       <button onClick={buy_handler}>Buy Now</button>
     </div>
   );

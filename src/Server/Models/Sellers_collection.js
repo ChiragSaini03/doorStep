@@ -20,6 +20,10 @@ const seller_schema = new mongo_conn.Schema({
     type: Boolean,
     require: true,
   },
+  date: {
+    type: Date,
+    require: true,
+  },
 });
 
 const seller_model = new mongo_conn.model("sellers_orders", seller_schema);

@@ -9,6 +9,13 @@ const order_schema = new mongo_conn.Schema({
     reqire: true,
   },
   status: String,
+  date: {
+    type: Date,
+    require: true,
+  },
+  total: {
+    type: Object,
+  },
 });
 const orders = new mongo_conn.model("Orders", order_schema);
 module.exports = orders;
