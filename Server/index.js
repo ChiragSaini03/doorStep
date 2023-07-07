@@ -2,7 +2,7 @@ const express = require("express");
 const mongo_conn = require("mongoose");
 // require("./db/login_db");
 const Login_collec = require("./Models/Login_collection");
-const Product_collec = require("./Models/Product_collection");
+const Product_collec = require("./Models/product_collection");
 const Cart_collec = require("./Models/Cart_collection");
 const Seller_collec = require("./Models/Sellers_collection");
 const app = express();
