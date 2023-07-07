@@ -74,22 +74,26 @@ const Cart_Item = (props) => {
   }, []);
 
   return (
-    <div className="">
-      <img src={product.image} alt="" classname="img"></img>
-      <div className="prod_name">{product.product_name}</div>
-      <div>
-        <strike>{product.price}$ </strike>
-      </div>
-      <div>{((100 - product.discount) * product.price) / 100}$ </div>
-      <div> {product.quantity} </div>
-      <div className="del">
-        <input type="button" value="-" onClick={remove_product}></input>
-      </div>
-      <div className="prod_qty">{qty}</div>
-      <div class="add">
-        <input type="button" value="+" onClick={add_product}></input>
-      </div>
-      <div>{(qty * product.price * (100 - product.discount)) / 100}</div>
+    <div class="border border-3 border-[rgb(70,156,152)] rounded-sm ">
+      <table>
+        <tr>
+          <td>
+          <img src={product.image} alt="" class="img w-[250px] "></img>
+          </td>
+          <td class="p-4">
+          <div className="prod_name font-bold py-2">{product.product_name}</div>
+          <div>
+            <strike>{product.price}$ </strike>
+          </div>
+          <div>{((100 - product.discount) * product.price) / 100}$ </div>
+          <div> {product.quantity} </div>
+          <input type="button" value="-" onClick={remove_product} class="font-semibold text-[rgb(70,156,152)] inline-block m-2 rounded-full  border border-[rgb(70,156,152)]  hover:bg-gray-100  w-[25px] h-[25px] cursor-pointer"></input>
+          <div className="prod_qty" class="inline-block text-[rgb(70,156,152)] font-bold">{qty}</div>
+          <input type="button" value="+" onClick={add_product} class="font-semibold text-[rgb(70,156,152)] inline-block m-2 rounded-full  border border-[rgb(70,156,152)]  hover:bg-gray-100  w-[25px] h-[25px] cursor-pointer"></input>
+          <div>{(qty * product.price * (100 - product.discount)) / 100}</div>
+          </td>
+        </tr>
+      </table>
     </div>
   );
 };

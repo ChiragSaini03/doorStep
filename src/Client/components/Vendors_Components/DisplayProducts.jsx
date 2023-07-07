@@ -8,14 +8,14 @@ const DisplayProducts = (props) => {
     navigate("/update_product");
   };
   return (
-    <div className=" border-2 hover:border-cyan-500 rounded-lg flex flex-col flex-none w-[215px] m-2 p-2">
+    <div className=" inline-block border-2 hover:border-[rgb(66,158,153)] border-[rgb(86,198,193)] rounded-lg w-[200px] m-2 p-2">
       <img
         src={props.item.image}
         alt=""
-        className="m-auto w-[154px] h-[154px]"
+        className="m-auto w-[125px] h-[125px] rounded-md"
       />
       <div className="item_quantity m-auto">
-        <h1 className="m-auto">{props.item.product_name}</h1>
+        <center><h1 className="my-1 font-bold">{props.item.product_name}</h1></center>
       </div>
       <div className="item_quantity ">
         <p>{props.item.quantity}</p>
@@ -28,10 +28,7 @@ const DisplayProducts = (props) => {
         <p>{((100 - props.item.discount) * props.item.price) / 100}$</p>
       </div>
       <div>Stock : {props.item.stock}</div>
-      <button
-        className="bg-gray-100 rounded-full w-1/2"
-        onClick={Update_handler}
-      >
+      <button className=" border border-[rgb(70,156,152)] text-[rgb(70,156,152)] hover:bg-gray-100  rounded-md w-full my-1" onClick={Update_handler}>
         Update
       </button>
     </div>

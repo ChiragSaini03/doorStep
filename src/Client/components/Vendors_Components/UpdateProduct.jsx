@@ -87,47 +87,50 @@ const UpdateProduct = (props) => {
       </nav>
       <br></br>
       <div className="pt-16">
-        <form className="Vendorsform">
-          <label>Categories</label>
-          <select value={cat} onChange={cat_handler}>
-            <option value="">--Select Category--</option>
-            <option>Dairy</option>
-            <option>Vegetables</option>
-            <option>Fruits</option>
-            <option>Groceries</option>
-            <option>Snacks</option>
-          </select>
-          <label>Product Name</label>
-          <input type="text" value={p_name} onChange={pname_handler}></input>
-          <label>Product Image Link</label>
-          <input type="text" value={p_image} onChange={pimage_handler}></input>
-          <label>Quantity</label>
-          <input type="text" value={qty} onChange={quantity_handler}></input>
-          <label>Price</label>
-          <input
-            type="number"
-            step="0.01"
-            value={price}
-            onChange={price_handler}
-          ></input>
-          <label>Stock</label>
-          <input
-            type="number"
-            step="1"
-            value={stock}
-            onChange={stock_handler}
-          ></input>
-          <label>About</label>
-          <textarea value={about} onChange={about_handler}></textarea>
-          <label>Discount</label>
-          <input
-            type="number"
-            step="1"
-            value={discount}
-            onChange={discount_handler}
-          ></input>
-          <input type="button" value="Update" onClick={submit_handeler}></input>
-        </form>
+      <form className="m-6">
+          <div class="grid gap-6 mb-6 md:grid-cols-2">
+              <div>
+                <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                <select id="categories" value={cat} onChange={cat_handler} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option value="" selected>-- Select Category --</option>
+                  <option>Dairy</option>
+                  <option>Vegetable</option>
+                  <option>Fruits</option>
+                  <option>Groceries</option>
+                  <option>Snacks</option>
+                </select>
+              </div>
+              <div>
+                  <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
+                  <input type="text" value={p_name} onChange={pname_handler} id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Product" required></input>
+              </div>
+              <div>
+                  <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Image Link</label>
+                  <input type="url" value={p_image} onChange={pimage_handler} id="image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="https://images.com/photo-1503023345310" required></input>
+              </div>
+              <div>
+                  <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                  <textarea id="desc" value={about} onChange={about_handler} rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="About the product..."></textarea>
+              </div>
+              <div>
+                  <label for="quan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
+                  <input type="number" step="10" value={qty} onChange={quantity_handler} id="quan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="100xx" required></input>
+              </div>
+              <div>
+                  <label for="price" classc="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price per unit</label>
+                  <input type="number" step="10" value={price} onChange={price_handler} id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="100" required></input>
+              </div>
+              <div>
+                  <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
+                  <input type="url" id="stock" value={stock} onChange={stock_handler} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="flowbite.com" required></input>
+              </div>
+              <div>
+                  <label for="discount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discont (%) </label>
+                  <input type="number" step="10" value={discount} onChange={discount_handler} id="discount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="15" required></input>
+              </div>
+          </div>
+          <button type="submit" value="Update" onClick={submit_handeler} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Upload</button>
+      </form>
       </div>
     </div>
   );

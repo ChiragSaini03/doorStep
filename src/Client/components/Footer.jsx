@@ -3,7 +3,7 @@ import React from 'react'
 function Footer() {
   return (
     <div>
-      <footer class="text-gray-600 body-font bg-gray-50 mt-10 border-t-2">
+      <footer class="text-gray-600 body-font bg-[rgb(96,202,197)] mt-10 border-t-2">
   <div class="container px-5 py-10 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
     <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
       <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
@@ -51,7 +51,7 @@ function Footer() {
       </div>
     </div>
   </div>
-  <div class="bg-gray-100">
+  <div class="bg-[rgb(70,156,152)]">
     <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
       <p class="text-gray-500 text-sm text-center sm:text-left">© 2023 Door Step </p>
       <span class="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">

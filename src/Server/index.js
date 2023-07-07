@@ -11,7 +11,7 @@ const { default: axios } = require("axios");
 const Orders_collec = require("./Models/Orders_collec");
 
 const port = process.env.PORT || 3001;
-
+console.log(port);
 app.use(express.json());
 app.use(cors());
 

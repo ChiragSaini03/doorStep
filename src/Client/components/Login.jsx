@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Nav from "./Nav";
+import loginimage from "./utils/utillogin.gif"
+
 function Login(props) {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -17,8 +19,10 @@ function Login(props) {
 
   const checkAPI = () => {
     const list = { username, password };
+    console.log(list);
     axios.post("http://localhost:3001/api/login", list).then((res) => {
       const user = res.data;
+      console.log(res.data);
       if (user.found) {
         if (user.pass) {
           console.log(user);
@@ -27,60 +31,51 @@ function Login(props) {
           if (user.type == "vendor") navigate("/Vendor_Home");
           else navigate("/Customer_Home");
         } else {
-          setErr(" * Password is incorrect");
+          setErr(" * Password is incorrect!");
         }
       } else {
-        setErr(" * Account not fount");
+        setErr(" * Account not found!");
         // navigate("/Signup");
       }
     });
   };
 
   const login_handeler = () => {
+    checkAPI();
     setUsername("");
     setPass("");
-    checkAPI();
   };
 
   return (
     <div>
       <Nav></Nav>
-      <div className="login_container bg-slate-300 w-90% m-4 pt-16">
-        <div className="content justify-center ">
-          <div className="form m-auto">
-            <h1 className="login_head">
+      <div className="p-5">
+        <center><img src={loginimage} alt="Login" class=" h-28 "/></center>
+            <h1 className="login_head text-[30px]">
               <center>LOGIN</center>
             </h1>
-            <form className="login_form">
-              <lable className="m-4">Username / Email</lable>
-              <input
-                type="text"
-                className="input m-4"
-                value={username}
-                onChange={username_handeler}
-              ></input>
-              <br />
-              <lable className="m-4">Password</lable>
-              <input
-                type="password"
-                className="input m-4"
-                value={password}
-                onChange={password_handeler}
-              ></input>
-              <br></br>
-              <input
-                type="button"
-                value="Login"
-                onClick={login_handeler}
-                className="Button m-4"
-              ></input>
-              <p className="error m-4">{err}</p>
-              <Link to="/Signup" className="m-4">
+
+        <center>
+          <form class="m-4">
+            <div class="mb-6 display:inline md:w-1/2 w-4/5">
+                <label for="email" class="block m-1 mb-2 text-sm font-medium text-gray-900 dark:text-white text-left" >UserName/Email</label>
+                <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" value={username} onChange={username_handeler}  required></input>
+            </div> 
+            <div class="mb-6 display:inline md:w-1/2 w-4/5">
+                <label for="password" class="block m-1 mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Password</label>
+                <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" value={password} onChange={password_handeler} required></input>
+            </div> 
+            <button onClick={login_handeler} value="Login" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+
+        <p className="error m-4">{err}</p>
+
+        <Link to="/Signup" className="text-white bg-[rgb(51,168,162)] hover:bg-[rgb(39,132,127)] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Create New Account
-              </Link>
-            </form>
-          </div>
-        </div>
+        </Link>
+
+        </form>
+        </center>
+
       </div>
     </div>
   );

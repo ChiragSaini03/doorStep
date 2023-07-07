@@ -37,10 +37,11 @@ const Orders = (props) => {
     get_customer_details(props.order.customer_id);
   }, []);
   return (
-    <div>
+    <div className="border-2 ">
       <br></br>
       <div>Order ID : {props.order.order_id}</div>
       <div>Booking date : {date + " - " + time}</div>
+      <br />
       <div>
         Customer Details : -
         <div style={{ paddingLeft: 15 }}>
@@ -56,19 +57,20 @@ const Orders = (props) => {
         Order Details :-
         <div style={{ paddingLeft: 15 }}>
           <table>
-            <tr>
+            <tr className="border-2 border-white border-b-[rgb(133,245,239)]">
               {/* <th> Product ID </th> */}
-              <th>Product name</th> <th>Quantity</th>
-              <th>Net Weight</th>
+              <th className="m-2 px-2">Product name</th> 
+              <th className="m-2 px-2">Quantity</th>
+              <th className="m-2 px-2">Net Weight</th>
             </tr>
 
             {props.order.order.map((products) => {
               return typeof products[0] == "string" ? (
                 <tr>
                   {/* <td>{products[0]}</td> */}
-                  <td>{products[1]}</td>
-                  <td>{products[2]}</td>
-                  <td>{products[3]}</td>
+                  <td className="px-2 m-2">{products[1]}</td>
+                  <td className="px-2 m-2">{products[2]}</td>
+                  <td className="px-2 m-2">{products[3]}</td>
                 </tr>
               ) : null;
             })}

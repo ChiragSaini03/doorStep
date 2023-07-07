@@ -21,6 +21,7 @@ const ViewProducts = (props) => {
     get_products(props.vid.email);
   }, []);
 
+  
   if (products.length == 0) {
     return <div>You have not listed any products yet</div>;
   } else {

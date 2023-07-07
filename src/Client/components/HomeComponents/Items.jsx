@@ -16,13 +16,13 @@ const Items = (props) => {
     }
   };
   return (
-    <div className=" border-2 hover:border-cyan-500 rounded-lg flex flex-col flex-none w-[215px] m-2 p-2">
+    <div className=" border-2 hover:border-[rgb(66,158,153)] border-[rgb(86,198,193)] rounded-lg flex flex-col flex-none w-[215px] m-2 p-2">
       <img
         src={props.item.image}
         alt=""
-        className="m-auto w-[154px] h-[154px]"
+        className="m-auto w-[154px] h-[154px] rounded-md"
       />
-      <div className="item_quantity m-auto">
+      <div className="item_quantity m-auto font-bold">
         <h1 className="m-auto">{props.item.product_name}</h1>
       </div>
       <div className="item_quantity ">
@@ -35,8 +35,8 @@ const Items = (props) => {
         </p>
         <p>{((100 - props.item.discount) * props.item.price) / 100}$</p>
       </div>
-      <button className="bg-gray-100 rounded-full w-1/2" onClick={cart_handler}>
-        add
+      <button className=" border border-[rgb(70,156,152)] text-[rgb(70,156,152)] hover:bg-gray-100  rounded-md w-full " onClick={cart_handler}>
+        Add to cart
       </button>
     </div>
   );
