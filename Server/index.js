@@ -13,10 +13,18 @@ const Orders_collec = require("./Models/Orders_collec");
 const port = process.env.PORT || 3001;
 console.log(port);
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://door-step.vercel.app/",
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
 
 // LOGIN :-
-
+app.get("/", (req, res) => {
+  res.json("Welcome To DoorStep");
+});
 app.post("/api/login", (req, res) => {
   const read = async () => {
     try {
