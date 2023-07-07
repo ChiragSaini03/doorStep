@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Items = (props) => {
+  const url = "https://door-step.vercel.app";
   const navigate = useNavigate();
 
   const cart_handler = async () => {
@@ -12,7 +13,7 @@ const Items = (props) => {
       if (confirmed) navigate("/Login");
     } else {
       const list = { cust_id: props.cid, pid: props.item._id };
-      axios.post("http://localhost:3001/api/insertcart", list);
+      axios.post(url+"/api/insertcart", list);
     }
   };
   return (

@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import signupimage from "./utils/utilsignup.gif";
 
 function Signup() {
+  const url = "https://door-step.vercel.app";
   const navigate = useNavigate();
   //states:-
   const [type, SetType] = useState("");
@@ -43,7 +44,7 @@ function Signup() {
       password,
     };
 
-    axios.post("http://localhost:3001/api/signup/", list).then((res) => {
+    axios.post(url+"/api/signup/", list).then((res) => {
       if (res.data == "noerror") {
         setError("");
         setName("");

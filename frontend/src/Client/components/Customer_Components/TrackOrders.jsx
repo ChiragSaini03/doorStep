@@ -4,10 +4,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Track_items from "./Track_items";
 
 const TrackOrders = (props) => {
+  const url = "https://door-step.vercel.app";
   const [order, setOrder] = useState([]);
   const navigate = useNavigate();
   const get_products = async () => {
-    const res = await axios.post("http://localhost:3001/track/order", {
+    const res = await axios.post(url+"/track/order", {
       id: props.cid.email,
     });
     console.log(res.data);

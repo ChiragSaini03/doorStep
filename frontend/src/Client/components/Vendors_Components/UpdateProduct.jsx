@@ -4,6 +4,7 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 
 const UpdateProduct = (props) => {
+  const url = "https://door-step.vercel.app";
   const navigate = useNavigate();
   //States:-
   const [cat, setCat] = useState(props.item.categories);
@@ -74,7 +75,7 @@ const UpdateProduct = (props) => {
       discount,
     };
     console.log(list);
-    axios.post("http://localhost:3001/update/product", list).then((res) => {
+    axios.post(url+"/update/product", list).then((res) => {
       alert("Your Product Details Has Been SuccessFully updated");
     });
   };

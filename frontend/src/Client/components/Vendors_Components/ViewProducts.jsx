@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import DisplayProducts from "./DisplayProducts";
 
 const ViewProducts = (props) => {
+  const url = "https://door-step.vercel.app";
   const [products, setProducts] = useState([]);
 
   const update_handler = (item) => {
     props.update_product(item);
   };
   const get_products = async (id) => {
-    const res = await axios.post("http://localhost:3001/get/vendors/product", {
+    const res = await axios.post(url+"/get/vendors/product", {
       vid: id,
     });
     setProducts((prev) => {

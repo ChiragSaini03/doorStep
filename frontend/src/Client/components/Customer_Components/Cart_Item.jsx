@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Cart_Item = (props) => {
+  const url = "https://door-step.vercel.app";
   const item_qty = props.detail[1];
   const [qty, setQty] = useState(item_qty);
   const [product, setProduct] = useState({});
@@ -14,7 +15,7 @@ const Cart_Item = (props) => {
     try {
       const list = { cust_id: props.cust_id, pid: props.detail[0] };
       await axios
-        .post("http://localhost:3001/api/update_delete_cart", list)
+        .post(url+"/api/update_delete_cart", list)
         .then(async (res) => {
           console.log(res.data);
           await setQty((prev) => (prev = res.data[props.detail[0]]));
@@ -29,7 +30,7 @@ const Cart_Item = (props) => {
       if (qty + 1 <= product.stock) {
         const list = { cust_id: props.cust_id, pid: props.detail[0] };
         await axios
-          .post("http://localhost:3001/api/update_add_cart", list)
+          .post(url+"/api/update_add_cart", list)
           .then(async (res) => {
             console.log(res.data);
             setQty((prev) => (prev = res.data[props.detail[0]]));
@@ -44,7 +45,7 @@ const Cart_Item = (props) => {
   const get_product = async (id) => {
     const list = { pid: id };
     const res = await axios.post(
-      "http://localhost:3001/api/get_product_info_cart",
+      url+"/api/get_product_info_cart",
       list
     );
     setProduct((prev) => ({ ...res.data }));
@@ -52,7 +53,7 @@ const Cart_Item = (props) => {
     if (qty > res.data.stock) {
       const list = { cust_id: props.cust_id, pid: props.detail[0] };
       await axios
-        .post("http://localhost:3001/api/empty_cart", list)
+        .post(url+"/api/empty_cart", list)
         .then(async (result) => {
           console.log(res.data);
           setQty((prev) => (prev = result.data[props.detail[0]]));

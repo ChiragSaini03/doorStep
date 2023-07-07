@@ -4,6 +4,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const Checkout = (props) => {
+  const url = "https://door-step.vercel.app";
   const [items, setItems] = useState([]);
   const [seller, setSeller] = useState({});
   const [product, setProduct] = useState([]);
@@ -13,7 +14,7 @@ const Checkout = (props) => {
 
   const display_cart = async (id) => {
     setTotal((prev) => 0);
-    const response = await axios.post("http://localhost:3001/api/displaycart", {
+    const response = await axios.post(url+"/api/displaycart", {
       id,
     });
     console.log(response.data);
@@ -38,7 +39,7 @@ const Checkout = (props) => {
   const get_product = async (id, qty) => {
     const list = { pid: id };
     await axios
-      .post("http://localhost:3001/api/get_product_info_cart", list)
+      .post(url+"/api/get_product_info_cart", list)
       .then((res) => {
         const seller_id = res.data.seller_id;
         const price = res.data.price;
@@ -92,7 +93,7 @@ const Checkout = (props) => {
   //   console.log(total);
 
   const buy_handler = async () => {
-    const res = await axios.post("http://localhost:3001/add/orders", {
+    const res = await axios.post(url+"/add/orders", {
       cid: props.data.email,
       order: seller,
       total: {

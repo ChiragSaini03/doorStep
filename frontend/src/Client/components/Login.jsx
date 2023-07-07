@@ -5,6 +5,7 @@ import Nav from "./Nav";
 import loginimage from "./utils/utillogin.gif"
 
 function Login(props) {
+  const url = "https://door-step.vercel.app";
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPass] = useState("");
@@ -20,7 +21,7 @@ function Login(props) {
   const checkAPI = () => {
     const list = { username, password };
     console.log(list);
-    axios.post("http://localhost:3001/api/login", list).then((res) => {
+    axios.post("https://door-step.vercel.app/api/login", list).then((res) => {
       const user = res.data;
       console.log(res.data);
       if (user.found) {

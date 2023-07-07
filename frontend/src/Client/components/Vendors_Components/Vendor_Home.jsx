@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const Vendor_Home = (props) => {
+  const url = "https://door-step.vercel.app";
   const navigate = useNavigate();
   //States:-
   const [cat, setCat] = useState("");
@@ -93,7 +94,7 @@ const Vendor_Home = (props) => {
     setPrice(0);
     setKeywords("");
     console.log(list);
-    axios.post("http://localhost:3001/api/product", list);
+    axios.post(url+"/api/product", list);
   };
   return (
     <div>

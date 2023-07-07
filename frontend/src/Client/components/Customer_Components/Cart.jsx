@@ -5,11 +5,11 @@ import Cart_Item from "./Cart_Item";
 
 const Cart = (props) => {
   const navigate = useNavigate();
-
+  const url = "https://door-step.vercel.app";
   const [items, setItems] = useState([]);
 
   const display_cart = async (id) => {
-    const response = await axios.post("http://localhost:3001/api/displaycart", {
+    const response = await axios.post(url+"/api/displaycart", {
       id,
     });
     console.log(response.data);

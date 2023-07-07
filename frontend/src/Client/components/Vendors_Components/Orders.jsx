@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Orders = (props) => {
+  const url = "https://door-step.vercel.app";
   const [c_data, setCData] = useState({});
   const [disp, setDisp] = useState(props.order.status);
   const utcdate = new Date(props.order.date);
@@ -10,7 +11,7 @@ const Orders = (props) => {
   const time = istTime.toLocaleTimeString("en-IN");
 
   const dispatch_handler = async () => {
-    const res = await axios.post("http://localhost:3001/dispatch/product", {
+    const res = await axios.post(url+"/dispatch/product", {
       sid: props.order.seller_id,
       oid: props.order.order_id,
     });
@@ -24,7 +25,7 @@ const Orders = (props) => {
   };
 
   const get_customer_details = async (id) => {
-    const res = await axios.post("http://localhost:3001/get/customer/details", {
+    const res = await axios.post(url+"/get/customer/details", {
       cid: id,
     });
     setCData((prev) => {

@@ -16,7 +16,7 @@ class TrieNode
             this.children[i] = null;
     }
 }
- 
+
 let root;
 
 function insert(key,productid)
@@ -61,6 +61,7 @@ function search(key)
 
 
 const Search = (props) => {
+  const url = "https://door-step.vercel.app";
   const [search_str, setSearch_str] = useState("");
   const [result, setResult] = useState([]);
   const [email, set_email] = useState("no_id");
@@ -77,7 +78,7 @@ const Search = (props) => {
   const res = async (words) => {
     words.map((str) => {
       axios
-        .post("http://localhost:3001/api/searchproducts", { str })
+        .post(url+"/api/searchproducts", { str })
         .then((res) => {
           setResult((prev)=>{return prev.concat(res.data)});
         });

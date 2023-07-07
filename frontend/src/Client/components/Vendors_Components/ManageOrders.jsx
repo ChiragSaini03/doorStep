@@ -4,9 +4,10 @@ import { NavLink } from "react-router-dom";
 import Orders from "./Orders";
 
 const ManageOrders = (props) => {
+  const url = "https://door-step.vercel.app";
   const [orders, setOrders] = useState([]);
   const get_orders = async (id) => {
-    const res = await axios.post("http://localhost:3001/get/seller/orders", {
+    const res = await axios.post(url+"/get/seller/orders", {
       vid: id,
     });
     setOrders((prev) => {
