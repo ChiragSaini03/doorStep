@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Categories from "./Catagories";
+const url = "https://door-step.vercel.app";
 const Category_container = (props) => {
   // const cart_handler = (data) => {
   //   props.item(data);
@@ -9,7 +10,7 @@ const Category_container = (props) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/getproducts").then((response) => {
+    axios.get(url+"/api/getproducts").then((response) => {
       setItems(response.data);
     });
   }, []);
