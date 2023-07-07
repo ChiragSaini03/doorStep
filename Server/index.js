@@ -1,5 +1,5 @@
 const express = require("express");
-require("./db/login_db");
+// require("./db/login_db");
 const Login_collec = require("./Models/Login_collection");
 const Product_collec = require("./Models/Product_collection");
 const Cart_collec = require("./Models/Cart_collection");
@@ -20,6 +20,19 @@ app.use(
     credentials: true,
   })
 );
+
+const mongo_conn = require("mongoose");
+mongo_conn.set("strictQuery", true);
+mongo_conn
+  .connect(
+    "mongodb+srv://doorstep_db_rohit:DoorStep123@cluster0.chgewfl.mongodb.net/?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    console.log("conn is succcessfull");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // LOGIN :-
 app.get("/", (req, res) => {
