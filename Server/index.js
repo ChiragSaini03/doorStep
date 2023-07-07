@@ -1,4 +1,5 @@
 const express = require("express");
+const mongo_conn = require("mongoose");
 // require("./db/login_db");
 const Login_collec = require("./Models/Login_collection");
 const Product_collec = require("./Models/Product_collection");
@@ -7,7 +8,7 @@ const Seller_collec = require("./Models/Sellers_collection");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { default: axios } = require("axios");
+// const { default: axios } = require("axios");
 const Orders_collec = require("./Models/Orders_collec");
 
 const port = process.env.PORT || 3001;
@@ -21,7 +22,6 @@ app.use(
   })
 );
 
-const mongo_conn = require("mongoose");
 // mongo_conn.set("strictQuery", true);
 mongo_conn
   .connect(
