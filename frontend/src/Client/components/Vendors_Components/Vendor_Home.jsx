@@ -64,10 +64,10 @@ const Vendor_Home = (props) => {
       words[i] = words[i][0].toUpperCase() + words[i].slice(1);
     }
 
-    const keywords_array=keywords.toLowerCase.split(" ");
+    const keywords_array = keywords.toLowerCase.split(" ");
 
     for (let i = 0; i < keywords.length; i++) {
-      keywords[i] =words[i][0].toUpperCase() + words[i].slice(1);
+      keywords[i] = words[i][0].toUpperCase() + words[i].slice(1);
     }
 
     const cap_p_name = words.join(" ");
@@ -94,89 +94,212 @@ const Vendor_Home = (props) => {
     setPrice(0);
     setKeywords("");
     console.log(list);
-    axios.post(url+"/api/product", list);
+    axios.post(url + "/api/product", list);
   };
   return (
     <div>
-      <div className="">
-      <nav className="Search_Nav p-2 bg-gradient-to-r from-[rgb(70,156,152)] to-[rgb(109,206,201)] border-2 w-full flex flex-col md:flex-row z-40">
-        <NavLink to="/Vendor_Home" className="Nav_Logo m-3">
-          Door Step
-        </NavLink>
-        <div className="flex md:ml-auto ml-0 md:mr-auto mr-0 w-5/6 align-middle dark:bg-slate-600">
-          <div className="flex flex-col md:flex-row flex-wrap md:ml-auto ml-0 align-middle">
-            <div className="info m-3">{props.vendor_data.name}</div>
-            <NavLink className="info m-3" to="/view_products">
-              {" "}
-              View Products{" "}
-            </NavLink>
-            <NavLink className="info m-3" to="/manage_order">
-              {" "}
-              Manage Orders{" "}
-            </NavLink>
-            <NavLink to="/" className="m-3">
-              <button
-                onClick={() => {
-                  props.clear_cust();
-                }}
-              >
-                LogOut
-              </button>
-            </NavLink>
+      <div className="dark:bg-slate-600">
+        <nav className="Search_Nav p-2 bg-gradient-to-r from-[rgb(70,156,152)] to-[rgb(109,206,201)] border-2 w-full flex flex-col md:flex-row z-40">
+          <NavLink to="/Vendor_Home" className="Nav_Logo m-3">
+            Door Step
+          </NavLink>
+          <div className="flex md:ml-auto ml-0 md:mr-auto mr-0 w-5/6 align-middle dark:bg-slate-600">
+            <div className="flex flex-col md:flex-row flex-wrap md:ml-auto ml-0 align-middle">
+              <div className="info m-3">{props.vendor_data.name}</div>
+              <NavLink className="info m-3" to="/view_products">
+                {" "}
+                View Products{" "}
+              </NavLink>
+              <NavLink className="info m-3" to="/manage_order">
+                {" "}
+                Manage Orders{" "}
+              </NavLink>
+              <NavLink to="/" className="m-3">
+                <button
+                  onClick={() => {
+                    props.clear_cust();
+                  }}
+                >
+                  LogOut
+                </button>
+              </NavLink>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
       </div>
 
       <form className="m-6">
-          <div class="grid gap-6 mb-6 md:grid-cols-2">
-              <div>
-                <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                <select id="categories" value={cat} onChange={cat_handler} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option value="" selected>-- Select Category --</option>
-                  <option>Dairy</option>
-                  <option>Vegetable</option>
-                  <option>Fruits</option>
-                  <option>Groceries</option>
-                  <option>Snacks</option>
-                </select>
-              </div>
-              <div>
-                  <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
-                  <input type="text" value={p_name} onChange={pname_handler} id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Product" required></input>
-              </div>
-              <div>
-                  <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Image Link</label>
-                  <input type="url" value={p_image} onChange={pimage_handler} id="image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="https://images.com/photo-1503023345310" required></input>
-              </div>
-              <div>
-                  <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                  <textarea id="desc" value={about} onChange={about_handler} rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="About the product..."></textarea>
-              </div>
-              <div>
-                  <label for="quan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
-                  <input type="number" step="10" value={qty} onChange={quantity_handler} id="quan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="100xx" required></input>
-              </div>
-              <div>
-                  <label for="price" classc="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price per unit</label>
-                  <input type="number" step="10" value={price} onChange={price_handler} id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="100" required></input>
-              </div>
-              <div>
-                  <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
-                  <input type="number" id="stock" value={stock} onChange={stock_handler} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1000" required></input>
-              </div>
-              <div>
-                  <label for="discount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discont (%) </label>
-                  <input type="number" step="10" value={discount} onChange={discount_handler} id="discount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="15" required></input>
-              </div>
-              <div>
-                  <label for="keyword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Suggestion (Search Keyword) </label>
-                  <input type="text" value={keywords} onChange={keyword_handler} id="keyword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Add the keywords that describes your products for searching purposes like Fruits, Apple." required></input>
-              </div>
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+          <div>
+            <label
+              for="categories"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Category
+            </label>
+            <select
+              id="categories"
+              value={cat}
+              onChange={cat_handler}
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="" selected>
+                -- Select Category --
+              </option>
+              <option>Dairy</option>
+              <option>Vegetable</option>
+              <option>Fruits</option>
+              <option>Groceries</option>
+              <option>Snacks</option>
+            </select>
           </div>
-          <button type="submit" value="Upload" onClick={submit_handeler} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Upload</button>
+          <div>
+            <label
+              for="name"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Product Name
+            </label>
+            <input
+              type="text"
+              value={p_name}
+              onChange={pname_handler}
+              id="name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Product"
+              required
+            ></input>
+          </div>
+          <div>
+            <label
+              for="image"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Product Image Link
+            </label>
+            <input
+              type="url"
+              value={p_image}
+              onChange={pimage_handler}
+              id="image"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="https://images.com/photo-1503023345310"
+              required
+            ></input>
+          </div>
+          <div>
+            <label
+              for="desc"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Description
+            </label>
+            <textarea
+              id="desc"
+              value={about}
+              onChange={about_handler}
+              rows="4"
+              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="About the product..."
+            ></textarea>
+          </div>
+          <div>
+            <label
+              for="quan"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Quantity
+            </label>
+            <input
+              type="text"
+              value={qty}
+              onChange={quantity_handler}
+              id="quan"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="100 g,Kg,lit"
+              required
+            ></input>
+          </div>
+          <div>
+            <label
+              for="price"
+              classc="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Price per unit
+            </label>
+            <input
+              type="number"
+              step="10"
+              value={price}
+              onChange={price_handler}
+              id="price"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="100"
+              required
+            ></input>
+          </div>
+          <div>
+            <label
+              for="stock"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Stock
+            </label>
+            <input
+              type="number"
+              id="stock"
+              value={stock}
+              onChange={stock_handler}
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="1000"
+              required
+            ></input>
+          </div>
+          <div>
+            <label
+              for="discount"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Discont (%){" "}
+            </label>
+            <input
+              type="number"
+              step="10"
+              value={discount}
+              onChange={discount_handler}
+              id="discount"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="15"
+              required
+            ></input>
+          </div>
+          <div>
+            <label
+              for="keyword"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Suggestion (Search Keyword){" "}
+            </label>
+            <input
+              type="text"
+              value={keywords}
+              onChange={keyword_handler}
+              id="keyword"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Add the keywords that describes your products for searching purposes like Fruits, Apple."
+              required
+            ></input>
+          </div>
+        </div>
+        <button
+          type="submit"
+          value="Upload"
+          onClick={submit_handeler}
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Upload
+        </button>
       </form>
-
     </div>
   );
 };
