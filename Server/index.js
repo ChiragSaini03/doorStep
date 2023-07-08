@@ -16,7 +16,7 @@ const port = process.env.PORT || 3001;
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://door-step-frontend.vercel.app",
+    origin: ["https://door-step-frontend.vercel.app", "http://localhost:3000"],
     methods: ["POST", "GET"],
     credentials: true,
   })
