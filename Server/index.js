@@ -639,7 +639,8 @@ app.post("/api/suggestion/getproduct", (req, res) => {
       res.send([]);
     }
   };
-  find_prod(req.body);
+  console.log(req.body);
+  find_prod(req.body.product_id_array);
 });
 
 app.listen(port);
