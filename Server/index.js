@@ -629,4 +629,17 @@ app.post("/api/suggestion", (req, res) => {
   read_data();
 });
 
+app.post("/api/suggestion/getproduct", (req, res) => {
+  const find_prod = async (data) => {
+    try {
+      let result = await suggestion_collec.find({ _id: { $in: data } });
+      res.send(result);
+    } catch (err) {
+      console.log(err);
+      res.send([]);
+    }
+  };
+  find_prod(req.body);
+});
+
 app.listen(port);

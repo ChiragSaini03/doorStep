@@ -33,21 +33,51 @@ function insert(key, productid) {
   pCrawl.productID = productid;
 }
 
+let suggestionResult = new Array();
+
+function dfsTrie(node, sug) {
+  let dep;
+  if (node.isEndOfWord) {
+    suggestionResult.push(sug);
+  }
+  for (dep = 0; dep < 26; dep++) {
+    if (node.children[dep])
+      dfsTrie(node.children[dep], sug + String.fromCharCode(dep + 97));
+  }
+}
+
 function trie_search(key) {
+  suggestionResult = [];
   let level;
   let length = key.length;
   let index;
-  let pCrawl = root;
+  let node = root;
+  let sug = "";
+  for (level = 0; level < length; level++) {
+    index = key[level].charCodeAt(0) - "a".charCodeAt(0);
+    sug += key[level];
+    if (node.children[index] == null) return suggestionResult;
+
+    node = node.children[index];
+  }
+  dfsTrie(node, sug);
+  return suggestionResult;
+}
+
+function trie_retrive_product(key) {
+  let level;
+  let length = key.length;
+  let index;
+  let node = root;
 
   for (level = 0; level < length; level++) {
     index = key[level].charCodeAt(0) - "a".charCodeAt(0);
 
-    if (pCrawl.children[index] == null) return false;
+    if (node.children[index] == null) return [];
 
-    pCrawl = pCrawl.children[index];
+    node = node.children[index];
   }
-
-  return pCrawl.isEndOfWord;
+  return node.productID;
 }
 
 root = new TrieNode();
@@ -57,6 +87,8 @@ const Search = (props) => {
   const [search_str, setSearch_str] = useState("");
   const [result, setResult] = useState([]);
   const [email, set_email] = useState("no_id");
+  const [suggestionBox, setsuggestionBox] = useState([]);
+  const [product_id_array, setproductidarray] = useState([]);
 
   useEffect(() => {
     if (props.cid.email) {
@@ -64,17 +96,22 @@ const Search = (props) => {
       set_email((prev) => {
         return props.cid.email;
       });
-      axios.post(url + "/api/suggestion", { search_str }).then((res) => {
-        console.log(res.data);
-        res.data.map((ele) => {
-          insert(ele.keyword, ele.product_id);
-        });
-      });
     }
+    axios.post(url + "/api/suggestion", { search_str }).then((res) => {
+      console.log(res.data);
+      res.data.map((ele) => {
+        insert(ele.keyword, ele.product_id);
+      });
+    });
   }, []);
 
   useEffect(() => {
-    console.log(search_str);
+    if (search_str.length > 1) {
+      setsuggestionBox(() => {
+        return trie_search(search_str.toLocaleLowerCase());
+      });
+      console.log(suggestionBox);
+    }
   }, [search_str]);
 
   const setSearch = (event) => {
@@ -84,12 +121,21 @@ const Search = (props) => {
     words.map((str) => {
       axios.post(url + "/api/searchproducts", { str }).then((res) => {
         setResult((prev) => {
-          return prev.concat(res.data);
+          return res.data;
         });
       });
     });
   };
 
+  const sugg_handler = () => {
+    axios
+      .post(url + "/api/suggestion/getproduct", { product_id_array })
+      .then((res) => {
+        setResult((prev) => {
+          return res.data;
+        });
+      });
+  };
   const search_handler_sugg = (event) => {
     setSearch_str(event.target.value);
   };
@@ -113,7 +159,7 @@ const Search = (props) => {
 
   return (
     <div>
-      <nav className="Search_Nav p-2 bg-gradient-to-r from-[rgb(70,156,152)] to-[rgb(109,206,201)] border-2 fixed w-full flex flex-col md:flex-row z-40">
+      <nav className="Search_Nav p-2 bg-gradient-to-r from-[rgb(70,156,152)] to-[rgb(109,206,201)] border-2 fixed w-full flex flex-row z-40">
         {props.cid.email != "no_id" ? (
           <NavLink to="/Customer_home" className="Nav_Logo m-2 mr-4">
             Door Step
@@ -154,11 +200,29 @@ const Search = (props) => {
             required
           ></input>
         </div>
+        <div class="absolute top-[48px] md:left-[96px] h-24 bg-white dark:bg-slate-900 md:w-[49%] w-[97%] rounded-md">
+          {suggestionBox.map((ele) => {
+            return (
+              <button
+                onClick={() => {
+                  setproductidarray(() => {
+                    return ele;
+                  });
+                  sugg_handler();
+                }}
+                value={ele}
+                class="block text-left m-2 my-1 w-[93%] bg-orange-200"
+              >
+                {ele}
+              </button>
+            );
+          })}
+        </div>
         <button
           type="button"
           value="search"
           onClick={search_handler}
-          class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          class="inline-flex items-center w-24 py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           <svg
             aria-hidden="true"
