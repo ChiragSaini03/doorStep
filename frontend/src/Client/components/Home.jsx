@@ -8,7 +8,7 @@ const Home = () => {
     <div className="Home">
       <Nav> </Nav>
       <br></br>
-      <div className="card pt-16">
+      <div className="card">
         <Adds />
         <Category_container cid={"no_id"} />
       </div>

@@ -53,7 +53,7 @@ function App() {
   //   }
   // };
   return (
-    <div className="App">
+    <div className="App dark:bg-slate-900 dark:text-white">
       <BrowserRouter>
         <div className="">
           <Routes>

@@ -8,7 +8,7 @@ const DisplayProducts = (props) => {
     navigate("/update_product");
   };
   return (
-    <div className=" inline-block border-2 hover:border-[rgb(66,158,153)] border-[rgb(86,198,193)] rounded-lg w-[200px] m-2 p-2">
+    <div className=" inline-block border-2 hover:border-[rgb(66,158,153)] border-[rgb(86,198,193)] dark:bg-[#11183b] rounded-lg w-[200px] m-2 p-2">
       <img
         src={props.item.image}
         alt=""

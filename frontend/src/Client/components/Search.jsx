@@ -4,90 +4,95 @@ import { NavLink } from "react-router-dom";
 import Items from "./HomeComponents/Items";
 
 let ALPHABET_SIZE = 26;
- 
-class TrieNode
-{
-    constructor()
-    {
-        this.productID = new Array();
-        this.isEndOfWord = false;
-        this.children = new Array(ALPHABET_SIZE);
-        for (let i = 0; i < ALPHABET_SIZE; i++)
-            this.children[i] = null;
-    }
+
+class TrieNode {
+  constructor() {
+    this.productID = new Array();
+    this.isEndOfWord = false;
+    this.children = new Array(ALPHABET_SIZE);
+    for (let i = 0; i < ALPHABET_SIZE; i++) this.children[i] = null;
+  }
 }
 
 let root;
 
-function insert(key,productid)
-{
-    let level;
-        let length = key.length;
-        let index;
-       
-        let pCrawl = root;
-       
-        for (level = 0; level < length; level++)
-        {
-            index = key[level].charCodeAt(0) - 'a'.charCodeAt(0);
-            if (pCrawl.children[index] == null)
-                pCrawl.children[index] = new TrieNode();
+function insert(key, productid) {
+  let level;
+  let length = key.length;
+  let index;
 
-            pCrawl = pCrawl.children[index];
-        }
-        pCrawl.isEndOfWord = true;
+  let pCrawl = root;
+
+  for (level = 0; level < length; level++) {
+    index = key[level].charCodeAt(0) - "a".charCodeAt(0);
+    if (pCrawl.children[index] == null) pCrawl.children[index] = new TrieNode();
+
+    pCrawl = pCrawl.children[index];
+  }
+  pCrawl.isEndOfWord = true;
+  pCrawl.productID = productid;
 }
 
-function search(key)
-{
-    let level;
-        let length = key.length;
-        let index;
-        let pCrawl = root;
-       
-        for (level = 0; level < length; level++)
-        {
-            index = key[level].charCodeAt(0) - 'a'.charCodeAt(0);
-       
-            if (pCrawl.children[index] == null)
-                return false;
-       
-            pCrawl = pCrawl.children[index];
-        }
-       
-        return (pCrawl.isEndOfWord);
+function trie_search(key) {
+  let level;
+  let length = key.length;
+  let index;
+  let pCrawl = root;
+
+  for (level = 0; level < length; level++) {
+    index = key[level].charCodeAt(0) - "a".charCodeAt(0);
+
+    if (pCrawl.children[index] == null) return false;
+
+    pCrawl = pCrawl.children[index];
+  }
+
+  return pCrawl.isEndOfWord;
 }
 
-
+root = new TrieNode();
 
 const Search = (props) => {
   const url = "https://door-step.vercel.app";
   const [search_str, setSearch_str] = useState("");
   const [result, setResult] = useState([]);
   const [email, set_email] = useState("no_id");
+
   useEffect(() => {
     if (props.cid.email) {
       console.log("email set", props.cid.email);
-      set_email((prev) => props.cid.email);
+      set_email((prev) => {
+        return props.cid.email;
+      });
+      axios.post(url + "/api/suggestion", { search_str }).then((res) => {
+        console.log(res.data);
+        res.data.map((ele) => {
+          insert(ele.keyword, ele.product_id);
+        });
+      });
     }
   }, []);
+
+  useEffect(() => {
+    console.log(search_str);
+  }, [search_str]);
 
   const setSearch = (event) => {
     setSearch_str(event.target.value);
   };
   const res = async (words) => {
     words.map((str) => {
-      axios
-        .post(url+"/api/searchproducts", { str })
-        .then((res) => {
-          setResult((prev)=>{return prev.concat(res.data)});
+      axios.post(url + "/api/searchproducts", { str }).then((res) => {
+        setResult((prev) => {
+          return prev.concat(res.data);
         });
+      });
     });
   };
 
   const search_handler_sugg = (event) => {
     setSearch_str(event.target.value);
-  }
+  };
 
   const search_handler = () => {
     setResult([]);
@@ -119,20 +124,64 @@ const Search = (props) => {
           </NavLink>
         )}
 
-
-
-    <label for="simple-search" class="sr-only">Search</label>
-    <div class="relative w-1/2 ">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+        <label for="simple-search" class="sr-only">
+          Search
+        </label>
+        <div class="relative w-1/2 ">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg
+              aria-hidden="true"
+              class="w-5 h-5 text-gray-500 dark:text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <input
+            onChange={search_handler_sugg}
+            type="text"
+            id="simple-search"
+            autoFocus="autofocus"
+            value={search_str}
+            class="searchbar bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search for items"
+            required
+          ></input>
         </div>
-        <input onChange={search_handler_sugg} type="text" id="simple-search" autoFocus="autofocus" value={search_str} class="searchbar bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items" required></input>
-    </div>
-    <button type="submit" value="search" onClick={search_handler} class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        <svg aria-hidden="true" class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>Search
-    </button>
+        <button
+          type="button"
+          value="search"
+          onClick={search_handler}
+          class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-5 h-5 mr-2 -ml-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            ></path>
+          </svg>
+          Search
+        </button>
 
-        <NavLink to="/Cart" className="Cart inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <NavLink
+          to="/Cart"
+          className="Cart inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
           Cart
         </NavLink>
       </nav>

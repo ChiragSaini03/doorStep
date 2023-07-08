@@ -17,7 +17,7 @@ const Items = (props) => {
     }
   };
   return (
-    <div className=" border-2 hover:border-[rgb(66,158,153)] border-[rgb(86,198,193)] rounded-lg flex flex-col flex-none w-[215px] m-2 p-2">
+    <div className=" border-2 hover:border-[rgb(66,158,153)] border-[rgb(86,198,193)] dark:bg-[#11183b] rounded-lg flex flex-col flex-none w-[215px] m-2 p-2">
       <img
         src={props.item.image}
         alt=""

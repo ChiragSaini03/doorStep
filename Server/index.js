@@ -616,4 +616,17 @@ app.post("/dispatch/product", (req, res) => {
   update_seller_info(req.body);
 });
 
+// SUGGESTIONS :-
+app.post("/api/suggestion", (req, res) => {
+  const read_data = async () => {
+    try {
+      const result = await suggestion_collec.find();
+      res.send(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  read_data();
+});
+
 app.listen(port);
