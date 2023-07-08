@@ -128,9 +128,11 @@ const Search = (props) => {
   };
 
   const sugg_handler = () => {
+    console.log(product_id_array);
     axios
       .post(url + "/api/suggestion/getproduct", { product_id_array })
       .then((res) => {
+        console.log("got product", res.data);
         setResult((prev) => {
           return res.data;
         });
@@ -206,7 +208,7 @@ const Search = (props) => {
               <button
                 onClick={() => {
                   setproductidarray(() => {
-                    return ele;
+                    return trie_retrive_product(ele);
                   });
                   sugg_handler();
                 }}

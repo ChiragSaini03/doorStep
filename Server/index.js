@@ -632,7 +632,7 @@ app.post("/api/suggestion", (req, res) => {
 app.post("/api/suggestion/getproduct", (req, res) => {
   const find_prod = async (data) => {
     try {
-      let result = await suggestion_collec.find({ _id: { $in: data } });
+      let result = await suggestion_collecn.find({ _id: { $in: data } });
       res.send(result);
     } catch (err) {
       console.log(err);
