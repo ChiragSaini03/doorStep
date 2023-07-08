@@ -16,7 +16,7 @@ const Vendor_Home = (props) => {
   const [discount, setDiscount] = useState(0);
   const [keywords, setKeywords] = useState("");
   // const [V_name, setV_name] = useState("Invalid User");
-  // console.log(props.vendor_data);
+  console.log(props.vendor_data);
   //checking login is succesfull or not :-
   useEffect(() => {
     if (!props.vendor_data.name) {
@@ -64,12 +64,12 @@ const Vendor_Home = (props) => {
       words[i] = words[i][0].toUpperCase() + words[i].slice(1);
     }
 
-    const keywords_array = keywords.toLowerCase.split(" ");
+    const keywords_array = keywords.toLowerCase().split(" ");
 
-    for (let i = 0; i < keywords.length; i++) {
-      keywords[i] = words[i][0].toUpperCase() + words[i].slice(1);
-    }
-
+    // for (let i = 0; i < keywords.length; i++) {
+    //   keywords_array[i] = [i][0].toUpperCase() + words[i].slice(1);
+    // }
+    console.log(props.vendor_data);
     const cap_p_name = words.join(" ");
     const sid = props.vendor_data.email;
     const list = {
@@ -82,19 +82,20 @@ const Vendor_Home = (props) => {
       stock,
       about,
       discount,
-      keywords,
+      keywords_array,
     };
-    setCat("");
-    setAbout("");
-    setDiscount(0);
-    setPimage("");
-    setPname("");
-    setQty("");
-    setStock(0);
-    setPrice(0);
-    setKeywords("");
+    // setCat("");
+    // setAbout("");
+    // setDiscount(0);
+    // setPimage("");
+    // setPname("");
+    // setQty("");
+    // setStock(0);
+    // setPrice(0);
+    // setKeywords("");
     console.log(list);
     axios.post(url + "/api/product", list);
+    alert("your Product is added Successfully");
   };
   return (
     <div className="dark:bg-slate-600">
@@ -292,7 +293,7 @@ const Vendor_Home = (props) => {
           </div>
         </div>
         <button
-          type="submit"
+          type="button"
           value="Upload"
           onClick={submit_handeler}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

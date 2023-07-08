@@ -10,6 +10,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 // const { default: axios } = require("axios");
 const Orders_collec = require("./Models/Orders_collec");
+const suggestion_collec = require("./Models/Suggestion_collec");
 
 const port = process.env.PORT || 3001;
 
@@ -106,8 +107,22 @@ app.post("/api/product", (req, res) => {
         about: req.body.about,
         discount: req.body.discount,
       });
+
       const record = await rec.save();
-      console.log(record);
+      req.body.keywords_array.map(async (keys) => {
+        const upd = await suggestion_collec.findOneAndUpdate(
+          { keyword: keys },
+          { $push: { product_id: record._id } },
+          { new: true }
+        );
+        if (!upd) {
+          sugg_rec = new suggestion_collec({
+            keyword: keys,
+            product_id: [record._id],
+          });
+          const rec = await sugg_rec.save();
+        }
+      });
       res.send("noerror");
     } catch (err) {
       console.log(err);
@@ -519,7 +534,9 @@ app.post("/update/product", (req, res) => {
       );
       console.log(result);
       res.send(result);
-    } catch (err) {}
+    } catch (err) {
+      res.send("false");
+    }
   };
   update_product(req.body.pid);
 });
