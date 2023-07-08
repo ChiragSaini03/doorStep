@@ -97,8 +97,8 @@ const Vendor_Home = (props) => {
     axios.post(url + "/api/product", list);
   };
   return (
-    <div>
-      <div className="dark:bg-slate-600">
+    <div className="dark:bg-slate-600">
+      <div className="">
         <nav className="Search_Nav p-2 bg-gradient-to-r from-[rgb(70,156,152)] to-[rgb(109,206,201)] border-2 w-full flex flex-col md:flex-row z-40">
           <NavLink to="/Vendor_Home" className="Nav_Logo m-3">
             Door Step
