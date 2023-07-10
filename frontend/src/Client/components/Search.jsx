@@ -88,7 +88,7 @@ const Search = (props) => {
   const [result, setResult] = useState([]);
   const [email, set_email] = useState("no_id");
   const [suggestionBox, setsuggestionBox] = useState([]);
-  const [product_id_array, setproductidarray] = useState([]);
+  // const [product_id_array, setproductidarray] = useState([]);
 
   useEffect(() => {
     if (props.cid.email) {
@@ -114,9 +114,10 @@ const Search = (props) => {
     }
   }, [search_str]);
 
-  const setSearch = (event) => {
-    setSearch_str(event.target.value);
-  };
+  // const setSearch = (event) => {
+  //   setSearch_str(event.target.value);
+  // };
+
   const res = async (words) => {
     words.map((str) => {
       axios.post(url + "/api/searchproducts", { str }).then((res) => {
@@ -127,7 +128,7 @@ const Search = (props) => {
     });
   };
 
-  const sugg_handler = () => {
+  const sugg_handler = (product_id_array) => {
     console.log(product_id_array);
     axios
       .post(url + "/api/suggestion/getproduct", { product_id_array })
@@ -206,11 +207,12 @@ const Search = (props) => {
           {suggestionBox.map((ele) => {
             return (
               <button
-                onClick={() => {
-                  setproductidarray(() => {
-                    return trie_retrive_product(ele);
-                  });
-                  sugg_handler();
+                onClick={async () => {
+                  const pid_array = await trie_retrive_product(ele);
+                  // setproductidarray(() => {
+                  //   return trie_retrive_product(ele);
+                  // });
+                  sugg_handler(pid_array);
                 }}
                 value={ele}
                 class="block text-left m-2 my-1 w-[93%] bg-orange-200"
