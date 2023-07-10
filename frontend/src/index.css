@@ -50,7 +50,7 @@ div::-webkit-scrollbar{
     width: calc(250px * 14);
 }
 .slider .slide {
-    height: 100px;
+    height: 100px; 
     width: 250px;
 } */
 
@@ -104,3 +104,35 @@ div::-webkit-scrollbar{
   
   }
   
+  .togglebutton{
+    top:1.55rem;
+    right:1em;
+    display:none;
+    flex-direction:column;
+    position: absolute;
+    justify-content: space-between;
+    height:21px;
+    width:30px;
+    cursor: pointer;
+}
+.layers{
+    width:100%;
+    height:4px;
+    background-color: black;
+    border-radius: 10px;
+    
+}
+
+@media screen and (max-width:768px){
+  .togglebutton{
+    display:flex ;
+  }
+  .menuitems{
+      width:100%;
+      transition: all 0.3s ease-in; 
+      padding:0px;
+  }
+  .layers{
+      transition: all 0.3s ease-in;
+  }
+}
