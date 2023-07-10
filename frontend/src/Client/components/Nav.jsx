@@ -34,7 +34,7 @@ function Nav() {
 
   return (
     <div className="NavBar bg-gradient-to-r from-[rgb(70,156,152)] to-[rgb(109,206,201)] w-full flex flex-col md:flex-row z-40 text-[20px]">
-      <NavLink to="/" className="Nav_Logo m-3 ">
+      <NavLink to="/" className="Nav_Logo m-3 w-1/2 md:w-auto">
         Door Step
       </NavLink>
       <button class="togglebutton" onClick={menuAnimation}>
@@ -44,7 +44,7 @@ function Nav() {
       </button>
       <div
         className={
-          "menuitems z-10 bg-gradient-to-r from-[rgb(70,156,152)] to-[rgb(109,206,201)] md:flex md:ml-auto ml-0 md:mr-auto mr-0 w-5/6 align-middle absolute md:static " +
+          "menuitems z-10 bg-gradient-to-r from-[rgb(70,156,152)] to-[rgb(109,206,201)] md:bg-none md:flex md:ml-auto ml-0 md:mr-auto mr-0 w-5/6 align-middle absolute md:static " +
           shownav
         }
       >
