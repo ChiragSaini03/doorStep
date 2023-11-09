@@ -53,9 +53,9 @@ function App() {
   //   }
   // };
   return (
-    <div className="App dark:bg-slate-900 dark:text-white">
+    <div className="App flex flex-col dark:bg-slate-900 dark:text-white min-h-[100vh] min-w-[100vw]">
       <BrowserRouter>
-        <div className="">
+        <div className="w-full h-full min-h-[100vh] min-w-[100vw]">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/Login" element={<Login get_data={info} />}></Route>

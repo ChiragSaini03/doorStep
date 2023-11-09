@@ -13,7 +13,7 @@ const Items = (props) => {
       if (confirmed) navigate("/Login");
     } else {
       const list = { cust_id: props.cid, pid: props.item._id };
-      axios.post(url+"/api/insertcart", list);
+      axios.post(url + "/api/insertcart", list);
     }
   };
   return (
@@ -36,7 +36,10 @@ const Items = (props) => {
         </p>
         <p>{((100 - props.item.discount) * props.item.price) / 100}$</p>
       </div>
-      <button className=" border border-[rgb(70,156,152)] text-[rgb(70,156,152)] hover:bg-gray-100  rounded-md w-full " onClick={cart_handler}>
+      <button
+        className=" border border-[rgb(70,156,152)] text-[rgb(70,156,152)] hover:bg-gray-100  rounded-md w-full "
+        onClick={cart_handler}
+      >
         Add to cart
       </button>
     </div>
