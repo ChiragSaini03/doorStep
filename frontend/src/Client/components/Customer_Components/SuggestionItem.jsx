@@ -39,7 +39,7 @@ const SuggestionItem = (props) => {
     // console.log(itemdetail);
     let itemnames = [];
     itemdetail.map((data) => itemnames.push(data.product_name));
-    const res = await axios.post("http://127.0.0.1:5000/apriori", {
+    const res = await axios.post("http://127.0.0.1:5000/fpgrowth", {
       data: itemnames,
     });
     let names = res["data"].data;

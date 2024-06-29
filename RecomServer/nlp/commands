@@ -1,0 +1,6 @@
+pip install gensim
+pip install numpy
+pip install spacy
+pip install transformers
+pip install torch
+pip3 install sent2vec

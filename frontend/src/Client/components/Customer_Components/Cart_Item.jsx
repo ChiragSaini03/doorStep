@@ -90,11 +90,15 @@ const Cart_Item = (props) => {
   }
 
   return (
-    <div class="border border-3 border-[rgb(70,156,152)] rounded-sm my-2 p-2">
+    <div class="border border-3 border-[rgb(70,156,152)] rounded-lg my-2 p-2">
       <table>
         <tr>
           <td>
-            <img src={product.image} alt="" class="img w-[250px] "></img>
+            <img
+              src={product.image}
+              alt=""
+              class="img w-[250px] rounded-lg "
+            ></img>
           </td>
           <td class="p-4">
             <div className="prod_name font-bold py-2">

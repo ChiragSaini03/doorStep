@@ -11,7 +11,7 @@ const Categories = (props) => {
       {all_cat.map((data) => (
         <div className="category m-5">
           <div className="ml-5">
-            <h2 className="text-lg">{data}</h2>
+            <h2 className="text-2xl">{data}</h2>
           </div>
           <div className="flex flex-col relative">
             <div className="flex flex-row overflow-x-auto overflow-y-hidden max-w-full ">

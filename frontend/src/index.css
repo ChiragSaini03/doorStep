@@ -84,16 +84,17 @@ div::-webkit-scrollbar{
   
   .swiper-slide {
     background-position: center;
+    /* margin:auto; */
     margin-left: 80px;
-    margin-right: 80px;
+    margin-right: 80px; 
     background-size: cover;
-    width: 600px;
-    height: 260px;
+    width: 580px;
+    height: 250px;
   }
   
   .swiper-slide img {
     display: block;
-    /* width: 100%; */
+    width: 100%;
     height: 100%;
   }
   

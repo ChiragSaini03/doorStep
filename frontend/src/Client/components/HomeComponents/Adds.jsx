@@ -1,5 +1,8 @@
 import React from "react";
-import ads from "../utils/utilsads.png";
+import ads1 from "../utils/ads1.png";
+import ads2 from "../utils/ads2.png";
+import ads3 from "../utils/ads3.png";
+import ads4 from "../utils/ads4.png";
 // Import Swiper React components
 import { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -48,46 +51,46 @@ const Adds = () => {
           className="mySwiper"
         >
           <SwiperSlide>
-            <img src={ads} alt="img-1" />
+            <img src={ads1} alt="img-1" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-2" />
+            <img src={ads2} alt="img-2" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-3" />
+            <img src={ads3} alt="img-3" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-4" />
+            <img src={ads4} alt="img-4" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-5" />
+            <img src={ads1} alt="img-5" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-6" />
+            <img src={ads2} alt="img-6" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-7" />
+            <img src={ads3} alt="img-7" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-8" />
+            <img src={ads4} alt="img-8" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-9" />
+            <img src={ads1} alt="img-9" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-10" />
+            <img src={ads2} alt="img-10" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-11" />
+            <img src={ads3} alt="img-11" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-12" />
+            <img src={ads4} alt="img-12" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-1" />
+            <img src={ads1} alt="img-1" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src={ads} alt="img-2" />
+            <img src={ads2} alt="img-2" />
           </SwiperSlide>
         </Swiper>
       </main>

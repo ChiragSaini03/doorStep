@@ -118,16 +118,6 @@ const Search = (props) => {
   //   setSearch_str(event.target.value);
   // };
 
-  const res = async (words) => {
-    words.map((str) => {
-      axios.post(url + "/api/searchproducts", { str }).then((res) => {
-        setResult((prev) => {
-          return res.data;
-        });
-      });
-    });
-  };
-
   const sugg_handler = (product_id_array) => {
     console.log(product_id_array);
     axios
@@ -143,6 +133,16 @@ const Search = (props) => {
     setSearch_str(event.target.value);
   };
 
+  const res = async (words) => {
+    words.map((str) => {
+      axios.post(url + "/api/searchproducts", { str }).then((res) => {
+        setResult((prev) => {
+          return res.data;
+        });
+      });
+    });
+  };
+
   const search_handler = () => {
     setResult([]);
     const words = search_str.toLowerCase().split(" ");
@@ -153,8 +153,9 @@ const Search = (props) => {
 
     setResult((n) => n.splice(0, n.length));
 
-    console.log(words);
-    console.log(result);
+    console.log("search_str");
+    console.log("words: ", words);
+    console.log("results", result);
     res(words);
 
     setSearch_str("");

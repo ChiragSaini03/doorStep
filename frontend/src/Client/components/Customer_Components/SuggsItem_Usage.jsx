@@ -35,32 +35,36 @@ const SuggsItem_Usage = (props) => {
   //   }
 
   return (
-    <div class="flex flex-row overflow-x-auto overflow-y-hidden">
-      <div className=" border-2 hover:border-[rgb(66,158,153)] border-[rgb(86,198,193)] dark:bg-[#11183b] rounded-lg flex flex-col flex-none w-[215px] m-2 p-2">
-        <img
-          src={props.idetail?.image}
-          alt=""
-          className="m-auto w-[154px] h-[154px] rounded-md"
-        />
-        <div className="item_quantity m-auto font-bold">
-          <h1 className="m-auto">{props.idetail?.product_name}</h1>
+    <div class="">
+      <div class="">
+        <div className=" border-2 hover:border-[rgb(66,158,153)] border-[rgb(86,198,193)] dark:bg-[#11183b] rounded-lg flex flex-col flex-none  w-[215px] m-2 p-2">
+          <img
+            src={props.idetail?.image}
+            alt=""
+            className="m-auto w-[154px] h-[154px] rounded-md"
+          />
+          <div className="item_quantity m-auto font-bold">
+            <h1 className="m-auto">{props.idetail?.product_name}</h1>
+          </div>
+          <div className="item_quantity ">
+            <p>{props.idetail?.quantity}</p>
+          </div>
+          <div className="item_price ">
+            <p>
+              <strike>{props.idetail.price}$</strike>
+              {"   " + props.idetail.discount}%
+            </p>
+            <p>
+              {((100 - props.idetail.discount) * props.idetail.price) / 100}$
+            </p>
+          </div>
+          <button
+            className=" border border-[rgb(70,156,152)] text-[rgb(70,156,152)] hover:bg-gray-100 rounded-md w-full "
+            onClick={cart_handler}
+          >
+            Add to cart
+          </button>
         </div>
-        <div className="item_quantity ">
-          <p>{props.idetail?.quantity}</p>
-        </div>
-        <div className="item_price ">
-          <p>
-            <strike>{props.idetail.price}$</strike>
-            {"   " + props.idetail.discount}%
-          </p>
-          <p>{((100 - props.idetail.discount) * props.idetail.price) / 100}$</p>
-        </div>
-        <button
-          className=" border border-[rgb(70,156,152)] text-[rgb(70,156,152)] hover:bg-gray-100 rounded-md w-full "
-          onClick={cart_handler}
-        >
-          Add to cart
-        </button>
       </div>
     </div>
   );

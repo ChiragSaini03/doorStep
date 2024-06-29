@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Cart_Item from "./Cart_Item";
 import SuggestionItem from "./SuggestionItem"; // this is for the display of suggested items
 import Loading from "../loading";
+import SuggsCNN from "./SuggsCNN";
 
 const Cart = (props) => {
   const navigate = useNavigate();
@@ -75,6 +76,21 @@ const Cart = (props) => {
           {items.length > 0 && (
             <SuggestionItem item={items} cid={props.cid.email} />
           )}
+          {/* {items.map(
+            (data) =>
+              data[1] > 0 && (
+                <SuggestionItem item={data[0]} cid={props.cid.email} />
+              )
+          )} */}
+        </div>
+      </div>
+
+      <div class="border-solid border-2 rounded-md border-white my-4 px-3 pb-3">
+        <h1 class="text-lg dark:text-white my-2">
+          Suggestions from your Cart items using CNN
+        </h1>
+        <div class="">
+          {items.length > 0 && <SuggsCNN item={items} cid={props.cid.email} />}
           {/* {items.map(
             (data) =>
               data[1] > 0 && (
