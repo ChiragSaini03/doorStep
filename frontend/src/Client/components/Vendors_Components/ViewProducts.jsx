@@ -54,11 +54,35 @@ const ViewProducts = (props) => {
     return (
       <div className="flex flex-col">
         <div className="">
+        <div className="">
           <nav className="Search_Nav p-2 bg-gradient-to-r from-[rgb(70,156,152)] to-[rgb(109,206,201)] border-2 w-full flex flex-col md:flex-row z-40">
             <NavLink to="/Vendor_Home" className="Nav_Logo m-3">
               Door Step
             </NavLink>
+            <div className="flex md:ml-auto ml-0 md:mr-auto mr-0 w-5/6 align-middle dark:text-slate-700">
+              <div className="flex flex-col md:flex-row flex-wrap md:ml-auto ml-0 align-middle">
+                {/* <div className="info m-3">{props.vendor_data.name}</div> */}
+                <NavLink className="info m-3" to="/view_products">
+                  {" "}
+                  View Products{" "}
+                </NavLink>
+                <NavLink className="info m-3" to="/manage_order">
+                  {" "}
+                  Manage Orders{" "}
+                </NavLink>
+                <NavLink to="/" className="m-3">
+                  <button
+                    onClick={() => {
+                      props.clear_cust();
+                    }}
+                  >
+                    LogOut
+                  </button>
+                </NavLink>
+              </div>
+            </div>
           </nav>
+        </div>
         </div>
         <div>
           {products.map((items) => {
