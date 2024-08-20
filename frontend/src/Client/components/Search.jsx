@@ -111,6 +111,8 @@ const Search = (props) => {
         return trie_search(search_str.toLocaleLowerCase());
       });
       console.log(suggestionBox);
+    } else {
+      setsuggestionBox([]);
     }
   }, [search_str]);
 
@@ -119,6 +121,7 @@ const Search = (props) => {
   // };
 
   const sugg_handler = (product_id_array) => {
+    setsuggestionBox([]);
     console.log(product_id_array);
     axios
       .post(url + "/api/suggestion/getproduct", { product_id_array })
@@ -204,7 +207,7 @@ const Search = (props) => {
             required
           ></input>
         </div>
-        <div class="absolute top-[48px] md:left-[96px] h-24 bg-white dark:bg-slate-900 md:w-[49%] w-[97%] rounded-md">
+        <div id="search-related-container" class="absolute top-[48px] md:left-[96px] bg-white dark:bg-slate-900 md:w-[49%] w-[97%] rounded-md">
           {suggestionBox.map((ele) => {
             return (
               <button
@@ -216,9 +219,11 @@ const Search = (props) => {
                   sugg_handler(pid_array);
                 }}
                 value={ele}
-                class="block text-left m-2 my-1 w-[93%] bg-orange-200"
+                class="block text-left m-auto my-1 w-[97%] bg-orange-300 rounded-lg"
               >
-                {ele}
+                <p class="block mx-4">
+                  {ele}
+                </p>
               </button>
             );
           })}
